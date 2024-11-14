@@ -10,7 +10,7 @@
 
 <body>
     <nav class="navbar">
-        <h1>🌤️ Weather City Search ⛈️ </h1>
+        <h1>🌤️ Weather City Search 🌧️ </h1>
     </nav>
 
     <div class="container">
@@ -32,11 +32,19 @@
 
         {% if data.country_code %}
         <div class="weather-info ">
-            <h2>{{ city }}
-                {% if data.weather_icon_url %}
-                <img src="{{ data.weather_icon_url }}" alt="Weather icon" style="vertical-align: middle;">
-                {% endif %}
-            </h2>
+            <div class="city-country">
+                <div class="city">
+                    <h2>{{ city }}
+                        {% if data.weather_icon_url %}
+                        <img src="{{ data.weather_icon_url }}" alt="Weather icon" style="vertical-align: middle;">
+                        {% endif %}
+                    </h2>
+                </div>
+                <div class="country">
+                    <h2>{{ data.country_code }}</h2>
+                </div>
+
+            </div>
             {% if data.weather_description %}
             <p><strong>Weather:</strong> {{ data.weather_description }}</p>
             {% endif %}
@@ -63,7 +71,8 @@
             <p><strong>Sunset:</strong> {{ data.sunset }}</p>
             {% endif %}
             <p class="fun-text">
-                "Toujours autant d'pluie chez moi🎵... Mais chez moi il fait beau ,il fait beau,il fait beau...🎵 "</p>
+                "Toujours autant d'pluie chez moi🎵... Mais chez moi il fait beau ,il fait beau,il fait beau...🎵 "
+            </p>
         </div>
         {% endif %}
         <form method="post">
