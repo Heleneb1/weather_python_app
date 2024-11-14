@@ -1,0 +1,92 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Weather City Search </title>
+    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+</head>
+
+<body>
+    <nav class="navbar">
+        <h1>🌤️ Weather City Search ⛈️ </h1>
+    </nav>
+
+    <div class="container">
+        <form action="" method="post" class="input-group">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="city" placeholder="Enter a city...">
+            <span class="input-group-btn">
+                <button class="btn search-btn" type="submit">
+                    Search 🔎
+                </button>
+            </span>
+        </form>
+
+        {% if error %}
+        <div class="alert alert-danger text-center">
+            <strong>{{ message }}</strong>
+        </div>
+        {% endif %}
+
+        {% if data.country_code %}
+        <div class="weather-info ">
+            <h2>{{ city }}
+                {% if data.weather_icon_url %}
+                <img src="{{ data.weather_icon_url }}" alt="Weather icon" style="vertical-align: middle;">
+                {% endif %}
+            </h2>
+            {% if data.weather_description %}
+            <p><strong>Weather:</strong> {{ data.weather_description }}</p>
+            {% endif %}
+            {% if data.feels_like %}
+            <p><strong>Feels like:</strong> {{ data.feels_like }}</p>
+            {% endif %}
+            {% if data.temp_min %}
+            <p><strong>Min Temp:</strong> {{ data.temp_min }}</p>
+            {% endif %}
+            {% if data.temp_max %}
+            <p><strong>Max Temp:</strong> {{ data.temp_max }}</p>
+            {% endif %}
+            {% if data.wind_speed %}
+            <p><strong>Wind Speed:</strong> {{ data.wind_speed }} at {{ data.wind_deg }}°</p>
+            {% endif %}
+            {% if data.cloudiness %}
+            <p><strong>Cloudiness:</strong> {{ data.cloudiness }}</p>
+            {% endif %}
+            {% if data.visibility %}
+            <p><strong>Visibility:</strong> {{ data.visibility }}</p>
+            {% endif %}
+            {% if data.sunrise and data.sunset %}
+            <p><strong>Sunrise:</strong> {{ data.sunrise }}</p>
+            <p><strong>Sunset:</strong> {{ data.sunset }}</p>
+            {% endif %}
+            <p class="fun-text">
+                "Toujours autant d'pluie chez moi🎵... Mais chez moi il fait beau ,il fait beau,il fait beau...🎵 "</p>
+        </div>
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="city" value="{{ city }}">
+            <input type="hidden" name="convert" value="{% if convert %}false{% else %}true{% endif %}">
+            <button class="btn search-btn" type="submit">
+                {% if convert %}
+                🌡️ Convertir en C°
+                {% else %}
+                🌡️ Convertir en F°
+                {% endif %}
+            </button>
+        </form>
+        <p style="margin: 1rem;" class="text-center ">Made with ❤️ by HeleneB</p>
+    </div>
+
+
+
+
+    <footer>
+        <div class="footer-text">&copy; 2024 HeleneB's Weather City Search - Built with Python & Django</div>
+    </footer>
+</body>
+
+</html>
